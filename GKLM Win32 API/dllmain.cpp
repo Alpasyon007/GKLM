@@ -6,6 +6,7 @@ HINSTANCE _hInstance;
 
 HHOOK hHook = 0;
 HWND currentWindow = 0;
+HWND overrideWindow = 0;
 HKL overrideKeyboardLayout = reinterpret_cast<HKL>(0x00000809);
 
 DWORD prevKey = 0;
@@ -17,15 +18,13 @@ BOOL CALLBACK GetWindows(HWND hwnd, LPARAM lParam);
 void AppLoop();
 
 extern "C" {
-	DLLEXPORT char GetName() {
-		std::string name = "Name";
-		const char* charName = name.c_str();
-		return *charName;
-	}
-
 	DLLEXPORT void HookKeyboard() {
 		// Hook into keyboard
 		hHook = SetWindowsHookEx(WH_KEYBOARD_LL, &LowLevelKeyboardProc, _hInstance, NULL);
+	}
+
+	DLLEXPORT void PassHandle(HWND hwnd) {
+		overrideWindow = hwnd;
 	}
 }
 
@@ -118,6 +117,13 @@ BOOL CALLBACK GetWindows(HWND hwnd, LPARAM lParam) {
 
 
 LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
+	HWND foregroundWindow = GetForegroundWindow();
+	std::wstring title(GetWindowTextLength(foregroundWindow) + 1, L'\0');
+	GetWindowTextW(foregroundWindow, &title[0], title.size());
+	if (overrideWindow != foregroundWindow) {
+		return CallNextHookEx(hHook, nCode, wParam, lParam);
+	}
+
 	if (nCode == HC_ACTION) {
 		const KBDLLHOOKSTRUCT* const kbd = reinterpret_cast<KBDLLHOOKSTRUCT*>(lParam);
 		const DWORD vkCode = kbd->vkCode;

@@ -14,7 +14,6 @@ namespace GKLM_UI {
 	/// </summary>
 	public partial class App : Application {
 
-		private IntPtr hWnd = IntPtr.Zero;
 		private AppWindow appW = null;
 		private OverlappedPresenter presenter = null;
 
@@ -49,7 +48,7 @@ namespace GKLM_UI {
 
 			SetWindowSize(800, 600);
 			m_window.Activate();
-			//HookKeyboard();
+			HookKeyboard();
 		}
 
 		private void SetWindowSize(int width, int height) {

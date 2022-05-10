@@ -27,9 +27,28 @@
 			</Grid>
 		</Grid>
 
-		<Grid Grid.Row="1"
-			  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-			<TextBlock>Content</TextBlock>
+		<Grid
+			Grid.Row="1"
+			Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Column="0">
+				<StackPanel Padding="24">
+					<ComboBox x:Name="WindowsCombo" ItemsSource="{x:Bind windowTitles}" HorizontalAlignment="Center" Height="44" Width="296" DisplayMemberPath="ProcessName" DropDownOpened="WindowsCombo_DropDownOpened"/>
+				</StackPanel>
+			</Grid>
+			<Grid Grid.Column="1">
+				<StackPanel Padding="24">
+					<Button x:Name="WindowSelect" Content="Attach"
+							ClickMode="Press"
+							Click="WindowSelect_Click"
+							Height="44" Width="296"
+							HorizontalAlignment="Center"
+							Foreground="Green"/>
+				</StackPanel>
+			</Grid>
 		</Grid>
 	</Grid>
 
