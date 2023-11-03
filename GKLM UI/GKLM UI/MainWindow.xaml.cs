@@ -6,13 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace GKLM_UI {
-	/// <summary>
-	/// An empty window that can be used on its own or navigated to within a Frame.
-	/// </summary>
 	public sealed partial class MainWindow : Window {
 
 		List<Process> processlist;
@@ -24,7 +18,6 @@ namespace GKLM_UI {
 
 		public MainWindow() {
 			this.InitializeComponent();
-			// Hide default title bar.
 			ExtendsContentIntoTitleBar = true;
 			SetTitleBar(TitleBar);
 		}
@@ -34,7 +27,7 @@ namespace GKLM_UI {
 			processlist = Process.GetProcesses().ToList();
 			foreach (Process process in processlist) {
 				if (!String.IsNullOrEmpty(process.MainWindowTitle)) {
-					windowTitles.Add(process/* + " [" + process.MainWindowTitle + "]" + " [" + process.Id + "]"*/);
+					windowTitles.Add(process);
 				}
 			}
 		}

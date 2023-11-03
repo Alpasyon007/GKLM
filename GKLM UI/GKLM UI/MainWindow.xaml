@@ -50,26 +50,27 @@
 				</StackPanel>
 			</Grid>
 		</Grid>
+
+		<!--<Grid>
+			<ListView x:Name="AttachedWindows">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<Grid Height="110" Margin="6">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+							<Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="110" Height="110">
+								<Image Source="{Binding Image}" Stretch="UniformToFill"/>
+							</Border>
+							<StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
+								<TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
+							</StackPanel>
+						</Grid>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</Grid>-->
 	</Grid>
 
-	<!--<SplitView x:Name="splitView" 
-			   IsPaneOpen="False" 
-			   PanePlacement="Right"
-			   OpenPaneLength="384" 
-			   CompactPaneLength="96" 
-			   DisplayMode="Overlay">
-		<Grid ColumnDefinitions="*,Auto" RowDefinitions="32,*">
-			<StackPanel
-				x:Name="TitelBar"
-				Grid.Row="0"
-				Grid.Column="0"
-				Orientation="Horizontal">
-				<TextBlock
-						Margin="10,0,0,0"
-						VerticalAlignment="Center"
-						Text="???"
-						TextWrapping="NoWrap"/>
-			</StackPanel>
-		</Grid>
-	</SplitView>-->
 </Window>

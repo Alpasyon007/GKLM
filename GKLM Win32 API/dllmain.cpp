@@ -107,8 +107,6 @@ BOOL CALLBACK GetWindows(HWND hwnd, LPARAM lParam) {
 		return TRUE;
 	}
 
-	// Retrieve the pointer passed into this callback, and re-'type' it.
-	// The only way for a C API to pass arbitrary data is by means of a void*.
 	std::map<HWND, std::wstring>& window = *reinterpret_cast<std::map<HWND, std::wstring>*>(lParam);
 	window.emplace(std::pair<HWND, std::wstring>(hwnd, title));
 
@@ -117,10 +115,7 @@ BOOL CALLBACK GetWindows(HWND hwnd, LPARAM lParam) {
 
 
 LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
-	HWND foregroundWindow = GetForegroundWindow();
-	std::wstring title(GetWindowTextLength(foregroundWindow) + 1, L'\0');
-	GetWindowTextW(foregroundWindow, &title[0], title.size());
-	if (overrideWindow != foregroundWindow) {
+	if (overrideWindow != GetForegroundWindow()) {
 		return CallNextHookEx(hHook, nCode, wParam, lParam);
 	}
 
